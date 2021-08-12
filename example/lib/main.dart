@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:load_more/load_more.dart';
+import 'package:load_items/load_items.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'load_more',
+      title: 'load_items',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: const Text('load_more'),
+          title: const Text('load_items'),
           bottom: const TabBar(
             tabs: [
               Tab(icon: Icon(Icons.list)),

@@ -1,4 +1,4 @@
-library load_more;
+library load_items;
 
 import 'package:flutter/material.dart';
 

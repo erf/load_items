@@ -1,5 +1,5 @@
-name: load_more_example
-description: An example of how to use load_more
+name: load_items_example
+description: An example of how to use load_items
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  load_more:
+  load_items:
     path: ../
 
 dev_dependencies:

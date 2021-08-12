@@ -1,4 +1,4 @@
-# load_more
+# load_items
 
 Load new items when scrolling to the bottom of a `ListView` or `GridView`.
 
