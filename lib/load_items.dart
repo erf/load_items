@@ -152,15 +152,16 @@ class _LoadItemsState<T> extends State<LoadItems<T>> {
   }
 
   GridView _buildGrid() {
+    final crossAxisCount = gridCrossAxisCount != null
+        ? gridCrossAxisCount!
+        : MediaQuery.of(context).size.width ~/ itemWidth!;
     return GridView.builder(
       physics: physics,
       controller: _scrollController,
       padding: padding,
       itemCount: _items.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: gridCrossAxisCount != null
-            ? gridCrossAxisCount!
-            : MediaQuery.of(context).size.width ~/ itemWidth!,
+        crossAxisCount: crossAxisCount,
         childAspectRatio: gridChildAspectRatio,
       ),
       itemBuilder: (context, index) =>
