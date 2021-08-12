@@ -1,39 +1,36 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# load_more
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+Load new items when scrolling to the bottom of a `ListView` or `GridView`.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+* load new items when scrolling to the bottom of a `ListView` or `GridView`
+* paging support by passing the previous items to `ItemsLoader`
+* add custom widget builders for items, loaders and empty widgets
+* configurable `ListView` and `GridView`
+* configure when to load more via `loadScrollFactor`
+* pull-to-refresh to reload data
+* force refresh using a `Listenable`
 
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+## Example
 
 ```dart
-const like = 'sample';
+LoadMore<Item>(
+	loadMoreType: LoadMoreType.grid,
+	itemBuilder: (context, Item item, int index) {
+		return ListTile(title: item.title);
+	},
+	itemsLoader: (List<Item> currentItems) {
+		return await Api.fetch({skip: currentItems.length});
+	},
+	gridCrossAxisCount: 3,
+)
 ```
 
-## Additional information
+See [example](./example) for full list and grid example.
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+## Author
+
+
+
+By [apptakk.com](http://apptakk.com/)
