@@ -103,11 +103,11 @@ class _LoadItemsState<T> extends State<LoadItems<T>> {
     _scrollController.addListener(() {
       if (_scrollController.offset >
           _scrollController.position.maxScrollExtent * loadScrollFactor) {
-        _fetch();
+        _loadItems();
       }
     });
 
-    _fetch();
+    _loadItems();
   }
 
   @override
@@ -174,10 +174,10 @@ class _LoadItemsState<T> extends State<LoadItems<T>> {
     }
     _items.clear();
 
-    _fetch();
+    _loadItems();
   }
 
-  Future _fetch() async {
+  Future _loadItems() async {
     if (_loading || !mounted) {
       return;
     }
