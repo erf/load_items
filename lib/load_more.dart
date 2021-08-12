@@ -2,9 +2,9 @@ library load_more;
 
 import 'package:flutter/material.dart';
 
-typedef ItemBuilder<T> = Widget Function(BuildContext context, T item, int i);
-
 typedef ItemsLoader<T> = Future<List<T>> Function(List<T> currentItems);
+
+typedef ItemBuilder<T> = Widget Function(BuildContext context, T item, int i);
 
 typedef WidgetBuilder = Widget Function();
 
@@ -12,8 +12,8 @@ enum LoadMoreType { list, grid }
 
 class LoadMore<T> extends StatefulWidget {
   final LoadMoreType loadMoreType;
-  final ItemBuilder<T> itemBuilder;
   final ItemsLoader<T> itemsLoader;
+  final ItemBuilder<T> itemBuilder;
   final WidgetBuilder? emptyBuilder;
   final WidgetBuilder? emptyLoadingBuilder;
   final WidgetBuilder? bottomLoadingBuilder;
@@ -28,8 +28,8 @@ class LoadMore<T> extends StatefulWidget {
   const LoadMore({
     Key? key,
     required this.loadMoreType,
-    required this.itemBuilder,
     required this.itemsLoader,
+    required this.itemBuilder,
     this.emptyBuilder,
     this.emptyLoadingBuilder,
     this.bottomLoadingBuilder,
@@ -47,8 +47,8 @@ class LoadMore<T> extends StatefulWidget {
 }
 
 class _LoadMoreState<T> extends State<LoadMore<T>> {
-  late final ItemBuilder<T> itemBuilder;
   late final ItemsLoader<T> itemsLoader;
+  late final ItemBuilder<T> itemBuilder;
   late final WidgetBuilder emptyBuilder;
   late final WidgetBuilder emptyLoadingBuilder;
   late final WidgetBuilder bottomLoadingBuilder;
@@ -68,8 +68,8 @@ class _LoadMoreState<T> extends State<LoadMore<T>> {
   void initState() {
     super.initState();
 
-    itemBuilder = widget.itemBuilder;
     itemsLoader = widget.itemsLoader;
+    itemBuilder = widget.itemBuilder;
 
     emptyBuilder = widget.emptyBuilder ?? () => const SizedBox.shrink();
 
