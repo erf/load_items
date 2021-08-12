@@ -8,10 +8,10 @@ typedef ItemBuilder<T> = Widget Function(BuildContext context, T item, int i);
 
 typedef WidgetBuilder = Widget Function();
 
-enum LoadMoreType { list, grid }
+enum LoadItemsType { list, grid }
 
-class LoadMore<T> extends StatefulWidget {
-  final LoadMoreType loadMoreType;
+class LoadItems<T> extends StatefulWidget {
+  final LoadItemsType type;
   final ItemsLoader<T> itemsLoader;
   final ItemBuilder<T> itemBuilder;
   final WidgetBuilder? emptyBuilder;
@@ -25,9 +25,9 @@ class LoadMore<T> extends StatefulWidget {
   final double? loadScrollFactor;
   final Listenable? refreshListenable;
 
-  const LoadMore({
+  const LoadItems({
     Key? key,
-    required this.loadMoreType,
+    required this.type,
     required this.itemsLoader,
     required this.itemBuilder,
     this.emptyBuilder,
@@ -43,10 +43,10 @@ class LoadMore<T> extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _LoadMoreState<T> createState() => _LoadMoreState<T>();
+  _LoadItemsState<T> createState() => _LoadItemsState<T>();
 }
 
-class _LoadMoreState<T> extends State<LoadMore<T>> {
+class _LoadItemsState<T> extends State<LoadItems<T>> {
   late final ItemsLoader<T> itemsLoader;
   late final ItemBuilder<T> itemBuilder;
   late final WidgetBuilder emptyBuilder;
@@ -131,9 +131,8 @@ class _LoadMoreState<T> extends State<LoadMore<T>> {
           onRefresh: _refresh,
           child: Scrollbar(
             controller: _scrollController,
-            child: widget.loadMoreType == LoadMoreType.list
-                ? _buildList()
-                : _buildGrid(),
+            child:
+                widget.type == LoadItemsType.list ? _buildList() : _buildGrid(),
           ),
         ),
         if (_loading) bottomLoadingBuilder()

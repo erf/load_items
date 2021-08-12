@@ -50,13 +50,13 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: TabBarView(
           children: [
-            LoadMore<Item>(
-              loadMoreType: LoadMoreType.list,
+            LoadItems<Item>(
+              type: LoadItemsType.list,
               itemBuilder: itemBuilder,
               itemsLoader: itemsLoader,
             ),
-            LoadMore<Item>(
-              loadMoreType: LoadMoreType.grid,
+            LoadItems<Item>(
+              type: LoadItemsType.grid,
               itemBuilder: itemBuilder,
               itemsLoader: itemsLoader,
               gridCrossAxisCount: 3,
