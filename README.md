@@ -29,8 +29,3 @@ LoadMore<Item>(
 
 See [example](./example) for full list and grid example.
 
-## Author
-
-
-
-By [apptakk.com](http://apptakk.com/)
