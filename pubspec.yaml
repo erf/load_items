@@ -1,7 +1,7 @@
 name: load_more
-description: A new Flutter package project.
-version: 0.0.1
-homepage:
+description: Load more items when scrolling down a ListView or GridView.
+version: 0.1.0
+homepage: https://github.com/erf/load_more
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
