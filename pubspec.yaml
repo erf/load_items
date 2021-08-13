@@ -1,6 +1,6 @@
 name: load_items
 description: Load more items when scrolling to the bottom of a ListView or GridView.
-version: 0.1.0+2
+version: 0.1.0+3
 homepage: https://github.com/erf/load_items
 
 environment:

@@ -1,3 +1,6 @@
+## 0.1.0+3
+* improve README and dartdoc
+
 ## 0.1.0+2
 * README: update example
 
