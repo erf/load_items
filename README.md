@@ -17,8 +17,8 @@ Load new items when scrolling to the bottom of a `ListView` or `GridView`.
 ## Example
 
 ```dart
-LoadMore<Item>(
-	loadMoreType: LoadMoreType.grid,
+LoadItems<Item>(
+	type: LoadItemsType.grid,
 	itemBuilder: (context, Item item, int index) {
 		return ListTile(title: item.title);
 	},
