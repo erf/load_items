@@ -2,6 +2,8 @@
 
 Load new items when scrolling to the bottom of a `ListView` or `GridView`.
 
+https://user-images.githubusercontent.com/1562523/129325662-7aa946ab-32a4-4237-8442-cc980fe480e2.mp4
+
 ## Features
 
 * load new items when scrolling to the bottom of a `ListView` or `GridView`
