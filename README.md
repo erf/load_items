@@ -7,7 +7,7 @@ Load new items when scrolling to the bottom of a `ListView` or `GridView`.
 ## Features
 
 * load new items when scrolling to the bottom of a `ListView` or `GridView`
-* paging support by passing the previous items to `ItemsLoader`
+* pagination support by passing the previous items to `ItemsLoader`
 * add custom widget builders for items, loaders and empty widgets
 * configurable `ListView` and `GridView`
 * configure when to load more via `loadScrollFactor`
