@@ -1,6 +1,6 @@
 # load_items
 
-Load new items when scrolling to the bottom of either a `ListView` or a `GridView`.
+Load new items into either a list or a grid as you scroll down.
 
 ![screencast](https://user-images.githubusercontent.com/1562523/129325662-7aa946ab-32a4-4237-8442-cc980fe480e2.mp4)
 
