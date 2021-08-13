@@ -14,7 +14,13 @@ typedef WidgetBuilder = Widget Function();
 /// An enum to specify to use a `ListView` or `GridView`
 enum LoadItemsType { list, grid }
 
-/// The main `StatefulWidget` used to load items when scrolling to the bottom of the screen.
+/// Builds either a `ListView` or `GridView` based on the given `LoadItemsType`,
+/// wrapped in a `RefreshIndicator`, a `Scrollbar` and a `Stack`.
+///
+/// `LoadItems` will call a given `ItemsLoader` when you scroll to the bottom of
+/// the screen, and use a given `ItemBuilder` to build a `Widget` per item.
+///
+/// Various builders and configurations can be passed to the constructor as well.
 class LoadItems<T> extends StatefulWidget {
   final LoadItemsType type;
   final ItemsLoader<T> itemsLoader;
