@@ -2,14 +2,19 @@ library load_items;
 
 import 'package:flutter/material.dart';
 
+/// A typedef function definition used to load new items
 typedef ItemsLoader<T> = Future<List<T>> Function(List<T> currentItems);
 
+/// A typedef function definition used to built a `Widget` per item `T`
 typedef ItemBuilder<T> = Widget Function(BuildContext context, T item, int i);
 
+/// A typedef function definition for building widgets
 typedef WidgetBuilder = Widget Function();
 
+/// An enum to specify to use a `ListView` or `GridView`
 enum LoadItemsType { list, grid }
 
+/// The main `StatefulWidget` used to load items when scrolling to the bottom of the screen.
 class LoadItems<T> extends StatefulWidget {
   final LoadItemsType type;
   final ItemsLoader<T> itemsLoader;
@@ -25,6 +30,7 @@ class LoadItems<T> extends StatefulWidget {
   final double? loadScrollFactor;
   final Listenable? refreshListenable;
 
+  /// LoadItems constructor. Pass a `type`, `itemsLoader` and a `itemsBuilder` in the constructor.
   const LoadItems({
     Key? key,
     required this.type,
@@ -46,6 +52,7 @@ class LoadItems<T> extends StatefulWidget {
   _LoadItemsState<T> createState() => _LoadItemsState<T>();
 }
 
+/// LoadItems State object
 class _LoadItemsState<T> extends State<LoadItems<T>> {
   late final ItemsLoader<T> itemsLoader;
   late final ItemBuilder<T> itemBuilder;
@@ -140,6 +147,7 @@ class _LoadItemsState<T> extends State<LoadItems<T>> {
     );
   }
 
+  /// builds a `ListView`
   ListView _buildList() {
     return ListView.builder(
       physics: physics,
@@ -151,6 +159,7 @@ class _LoadItemsState<T> extends State<LoadItems<T>> {
     );
   }
 
+  /// builds a `GridView`
   GridView _buildGrid() {
     final crossAxisCount = gridCrossAxisCount != null
         ? gridCrossAxisCount!
@@ -169,6 +178,7 @@ class _LoadItemsState<T> extends State<LoadItems<T>> {
     );
   }
 
+  /// Clears all items and calls the `itemsLoader`.
   Future _refresh() async {
     if (_loading || !mounted) {
       return;
@@ -178,6 +188,7 @@ class _LoadItemsState<T> extends State<LoadItems<T>> {
     _loadItems();
   }
 
+  /// Calls the `itemsLoader`, and adds the new items. Also sets the `loading` state.
   Future _loadItems() async {
     if (_loading || !mounted) {
       return;
