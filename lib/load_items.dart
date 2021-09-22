@@ -35,6 +35,9 @@ class LoadItems<T> extends StatefulWidget {
   final EdgeInsets? padding;
   final double? loadScrollFactor;
   final Listenable? refreshListenable;
+  final Listenable? scrollToTopListenable;
+  final int? scrollToTopDuration;
+  final Curve? scrollToTopCurve;
 
   /// LoadItems constructor. Pass a `type`, `itemsLoader` and a `itemsBuilder` in the constructor.
   const LoadItems({
@@ -52,6 +55,9 @@ class LoadItems<T> extends StatefulWidget {
     this.padding,
     this.loadScrollFactor,
     this.refreshListenable,
+    this.scrollToTopListenable,
+    this.scrollToTopDuration,
+    this.scrollToTopCurve,
   }) : super(key: key);
 
   @override
@@ -65,13 +71,16 @@ class _LoadItemsState<T> extends State<LoadItems<T>> {
   late final WidgetBuilder emptyBuilder;
   late final WidgetBuilder emptyLoadingBuilder;
   late final WidgetBuilder bottomLoadingBuilder;
-  late final int? itemWidth;
+  late final int itemWidth;
   late final int? gridCrossAxisCount;
   late final double gridChildAspectRatio;
   late final ScrollPhysics physics;
   late final EdgeInsets padding;
   late final double loadScrollFactor;
   late final Listenable? refreshListenable;
+  late final Listenable? scrollToTopListenable;
+  late final int scrollToTopDuration;
+  late final Curve scrollToTopCurve;
 
   final List<T> _items = <T>[];
   final _scrollController = ScrollController();
@@ -108,6 +117,9 @@ class _LoadItemsState<T> extends State<LoadItems<T>> {
     padding = widget.padding ?? EdgeInsets.zero;
     loadScrollFactor = widget.loadScrollFactor ?? 0.85;
     refreshListenable = widget.refreshListenable;
+    scrollToTopListenable = widget.scrollToTopListenable;
+    scrollToTopDuration = widget.scrollToTopDuration ?? 350;
+    scrollToTopCurve = widget.scrollToTopCurve ?? Curves.bounceInOut;
 
     refreshListenable?.addListener(() {
       _refresh();
@@ -117,6 +129,14 @@ class _LoadItemsState<T> extends State<LoadItems<T>> {
       if (_scrollController.offset >
           _scrollController.position.maxScrollExtent * loadScrollFactor) {
         _loadItems();
+      }
+    });
+
+    scrollToTopListenable?.addListener(() {
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(0,
+            curve: scrollToTopCurve,
+            duration: Duration(milliseconds: scrollToTopDuration));
       }
     });
 
@@ -169,7 +189,7 @@ class _LoadItemsState<T> extends State<LoadItems<T>> {
   GridView _buildGrid() {
     final crossAxisCount = gridCrossAxisCount != null
         ? gridCrossAxisCount!
-        : MediaQuery.of(context).size.width ~/ itemWidth!;
+        : MediaQuery.of(context).size.width ~/ itemWidth;
     return GridView.builder(
       physics: physics,
       controller: _scrollController,

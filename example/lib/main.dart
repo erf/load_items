@@ -33,6 +33,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final scrollToTop = ChangeNotifier();
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -48,18 +50,26 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.arrow_upward),
+          onPressed: () {
+            scrollToTop.notifyListeners();
+          },
+        ),
         body: TabBarView(
           children: [
             LoadItems<Item>(
               type: LoadItemsType.list,
               itemBuilder: itemBuilder,
               itemsLoader: itemsLoader,
+              scrollToTopListenable: scrollToTop,
             ),
             LoadItems<Item>(
               type: LoadItemsType.grid,
               itemBuilder: itemBuilder,
               itemsLoader: itemsLoader,
               gridCrossAxisCount: 3,
+              scrollToTopListenable: scrollToTop,
             ),
           ],
         ),
