@@ -1,3 +1,6 @@
+## 0.2.0
+* added scroll-to-top listenable
+
 ## 0.1.0+3
 * improve README and dartdoc
 

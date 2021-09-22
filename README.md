@@ -13,6 +13,7 @@ Load new items into either a list or a grid as you scroll down.
 * configure when to load more via `loadScrollFactor`
 * pull-to-refresh to reload data
 * force refresh using a `Listenable`
+* scroll to top using a `Listenable`
 
 ## Example
 
