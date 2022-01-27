@@ -29,6 +29,8 @@ class LoadItems<T> extends StatefulWidget {
   final WidgetBuilder? emptyLoadingBuilder;
   final WidgetBuilder? bottomLoadingBuilder;
   final int? itemWidth;
+  final bool? addAutomaticKeepAlives;
+  final double? cacheExtent;
   final int? gridCrossAxisCount;
   final double? gridChildAspectRatio;
   final ScrollPhysics? physics;
@@ -49,6 +51,8 @@ class LoadItems<T> extends StatefulWidget {
     this.emptyLoadingBuilder,
     this.bottomLoadingBuilder,
     this.itemWidth,
+    this.addAutomaticKeepAlives,
+    this.cacheExtent,
     this.gridCrossAxisCount,
     this.gridChildAspectRatio,
     this.physics,
@@ -81,6 +85,8 @@ class _LoadItemsState<T> extends State<LoadItems<T>> {
   late final Listenable? scrollToTopListenable;
   late final int scrollToTopDuration;
   late final Curve scrollToTopCurve;
+  late final bool addAutomaticKeepAlives;
+  late final double cacheExtent;
 
   final List<T> _items = <T>[];
   final _scrollController = ScrollController();
@@ -110,6 +116,8 @@ class _LoadItemsState<T> extends State<LoadItems<T>> {
               ),
             );
 
+    addAutomaticKeepAlives = widget.addAutomaticKeepAlives ?? true;
+    cacheExtent = widget.cacheExtent ?? 9999;
     itemWidth = widget.itemWidth ?? 120;
     gridCrossAxisCount = widget.gridCrossAxisCount;
     gridChildAspectRatio = widget.gridChildAspectRatio ?? 0.85;
@@ -177,6 +185,8 @@ class _LoadItemsState<T> extends State<LoadItems<T>> {
   ListView _buildList() {
     return ListView.builder(
       physics: physics,
+      addAutomaticKeepAlives:addAutomaticKeepAlives,
+      cacheExtent:cacheExtent,
       controller: _scrollController,
       itemCount: _items.length,
       padding: padding,
@@ -192,6 +202,8 @@ class _LoadItemsState<T> extends State<LoadItems<T>> {
         : MediaQuery.of(context).size.width ~/ itemWidth;
     return GridView.builder(
       physics: physics,
+      addAutomaticKeepAlives:addAutomaticKeepAlives,
+      cacheExtent:cacheExtent,
       controller: _scrollController,
       padding: padding,
       itemCount: _items.length,
