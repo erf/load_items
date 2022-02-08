@@ -96,7 +96,7 @@ class _LoadItemsState<T> extends State<LoadItems<T>> {
     emptyBuilder = widget.emptyBuilder ?? () => const SizedBox.shrink();
 
     emptyLoadingBuilder = widget.emptyLoadingBuilder ??
-        () => const Center(child: CircularProgressIndicator());
+        () => const Center(child: CircularProgressIndicator.adaptive());
 
     bottomLoadingBuilder = widget.bottomLoadingBuilder ??
         () => const Align(
@@ -105,7 +105,7 @@ class _LoadItemsState<T> extends State<LoadItems<T>> {
                 padding: EdgeInsets.symmetric(vertical: 16),
                 child: FittedBox(
                   fit: BoxFit.contain,
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator.adaptive(),
                 ),
               ),
             );
