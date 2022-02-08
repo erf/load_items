@@ -1,3 +1,6 @@
+## 0.3.0
+* use CircularProgressIndicator.adaptive()
+
 ## 0.2.0
 * added scroll-to-top listenable
 
