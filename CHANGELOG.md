@@ -1,3 +1,6 @@
+## 0.4.0
+* fade out bottom if more option (based on https://twitter.com/filiphracek/status/1494213873422974978)
+
 ## 0.3.0
 * use CircularProgressIndicator.adaptive()
 
