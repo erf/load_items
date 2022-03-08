@@ -14,6 +14,7 @@ Load new items into either a list or a grid as you scroll down.
 * pull-to-refresh to reload data
 * force refresh using a `Listenable`
 * scroll to top using a `Listenable`
+* fade out bottom if more option
 
 ## Example
 
