@@ -25,6 +25,12 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class ScrollToTopNotifier extends ChangeNotifier {
+  void scrollToTop() {
+    notifyListeners();
+  }
+}
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
@@ -33,7 +39,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final scrollToTop = ChangeNotifier();
+  final scrollToTop = ScrollToTopNotifier();
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.arrow_upward),
           onPressed: () {
-            scrollToTop.notifyListeners();
+            scrollToTop.scrollToTop();
           },
         ),
         body: TabBarView(
