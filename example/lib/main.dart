@@ -69,6 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
               itemBuilder: itemBuilder,
               itemsLoader: itemsLoader,
               scrollToTopListenable: scrollToTop,
+              fadeOutIfMore: true,
             ),
             LoadItems<Item>(
               type: LoadItemsType.grid,
@@ -76,6 +77,10 @@ class _MyHomePageState extends State<MyHomePage> {
               itemsLoader: itemsLoader,
               gridCrossAxisCount: 3,
               scrollToTopListenable: scrollToTop,
+              fadeOutIfMore: true,
+              fadeOutRatio: 0.7,
+              fadeOutCurve: Curves.easeIn,
+              fadeOutDuration: const Duration(milliseconds: 1000),
             ),
           ],
         ),
@@ -98,8 +103,11 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Future<List<Item>> itemsLoader(List currentItems) async {
+  Future<List<Item>> itemsLoader(List<Item> currentItems) async {
     await Future.delayed(const Duration(milliseconds: 750));
-    return List.generate(16, (i) => Item(currentItems.length + i));
+    if (currentItems.length < 96) {
+      return List.generate(16, (i) => Item(currentItems.length + i));
+    }
+    return List.empty();
   }
 }

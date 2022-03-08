@@ -39,6 +39,12 @@ class LoadItems<T> extends StatefulWidget {
   final int? scrollToTopDuration;
   final Curve? scrollToTopCurve;
 
+  /// Set to true if you want to fade out the content if more.
+  final bool fadeOutIfMore;
+  final double fadeOutRatio;
+  final Curve fadeOutCurve;
+  final Duration fadeOutDuration;
+
   /// LoadItems constructor. Pass a `type`, `itemsLoader` and a `itemsBuilder` in the constructor.
   const LoadItems({
     Key? key,
@@ -58,6 +64,10 @@ class LoadItems<T> extends StatefulWidget {
     this.scrollToTopListenable,
     this.scrollToTopDuration,
     this.scrollToTopCurve,
+    this.fadeOutIfMore = false,
+    this.fadeOutRatio = 0.85,
+    this.fadeOutCurve = Curves.easeOut,
+    this.fadeOutDuration = const Duration(milliseconds: 500),
   }) : super(key: key);
 
   @override
@@ -81,10 +91,15 @@ class _LoadItemsState<T> extends State<LoadItems<T>> {
   late final Listenable? scrollToTopListenable;
   late final int scrollToTopDuration;
   late final Curve scrollToTopCurve;
+  late final bool fadeOutIfMore;
+  late final double fadeOutRatio;
+  late final Curve fadeOutCurve;
+  late final Duration fadeOutDuration;
 
   final List<T> _items = <T>[];
   final _scrollController = ScrollController();
   bool _loading = false;
+  bool _overlayIsVisible = false;
 
   @override
   void initState() {
@@ -120,12 +135,19 @@ class _LoadItemsState<T> extends State<LoadItems<T>> {
     scrollToTopListenable = widget.scrollToTopListenable;
     scrollToTopDuration = widget.scrollToTopDuration ?? 350;
     scrollToTopCurve = widget.scrollToTopCurve ?? Curves.bounceInOut;
+    fadeOutIfMore = widget.fadeOutIfMore;
+    fadeOutRatio = widget.fadeOutRatio;
+    fadeOutCurve = widget.fadeOutCurve;
+    fadeOutDuration = widget.fadeOutDuration;
 
     refreshListenable?.addListener(() {
       _refresh();
     });
 
     _scrollController.addListener(() {
+      setState(() {
+        _overlayIsVisible = _scrollController.position.extentAfter > 0;
+      });
       if (_scrollController.offset >
           _scrollController.position.maxScrollExtent * loadScrollFactor) {
         _loadItems();
@@ -168,7 +190,31 @@ class _LoadItemsState<T> extends State<LoadItems<T>> {
                 widget.type == LoadItemsType.list ? _buildList() : _buildGrid(),
           ),
         ),
-        if (_loading) bottomLoadingBuilder()
+        if (fadeOutIfMore)
+          IgnorePointer(
+            child: AnimatedOpacity(
+              opacity: _overlayIsVisible ? 1 : 0,
+              duration: fadeOutDuration,
+              curve: fadeOutCurve,
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: const [
+                      Color(0x00FFFFFF),
+                      Color(0xAAFFFFFF),
+                    ],
+                    stops: [
+                      fadeOutRatio,
+                      1.0,
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        if (_loading) bottomLoadingBuilder(),
       ],
     );
   }
@@ -222,6 +268,7 @@ class _LoadItemsState<T> extends State<LoadItems<T>> {
 
     setState(() {
       _loading = true;
+      _overlayIsVisible = false;
     });
 
     final List<T> newItems = await itemsLoader(_items);
@@ -232,7 +279,10 @@ class _LoadItemsState<T> extends State<LoadItems<T>> {
 
     setState(() {
       _loading = false;
-      _items.addAll(newItems);
+      if (newItems.isNotEmpty) {
+        _items.addAll(newItems);
+        _overlayIsVisible = true;
+      }
     });
   }
 }
