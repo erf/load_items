@@ -1,3 +1,7 @@
+## 0.5.0
+* updates lints package
+* update sdk >= 2.18.0 < 4.0.0
+
 ## 0.4.0
 * fade out bottom if more option (based on https://twitter.com/filiphracek/status/1494213873422974978)
 
