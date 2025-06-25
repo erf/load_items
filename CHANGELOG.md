@@ -1,3 +1,7 @@
+## 0.6.0
+* update sdk >= 3.0.0 < 4.0.0
+* update packages
+
 ## 0.5.0
 * updates lints package
 * update sdk >= 2.18.0 < 4.0.0
